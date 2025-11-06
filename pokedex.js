@@ -16,6 +16,10 @@ async function info() {
       const url = pokemon.url;
       item1.textContent = name;
       item2.textContent = url;
+      const id = pokemon.url.split("/")[6];
+      const img = document.createElement("img");
+      img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+      item1.appendChild(img);
       item1.appendChild(item2);
       pokemoninfo.appendChild(item1);
     });

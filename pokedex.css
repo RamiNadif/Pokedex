@@ -1,1 +1,18 @@
-
+div {
+  display: column;
+  flex-direction: row;
+  border-style: solid;
+  margin: 20px;
+  padding: 10px;
+  width: 250px;
+  float: left;
+  gap: 10px;
+}
+#box {
+  display: column;
+  flex-direction: row;
+}
+#search {
+  width: 10px;
+  height: 10px;
+}
