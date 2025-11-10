@@ -17,6 +17,13 @@ div {
   height: 10px;
 }
 
-h1 {
+#SearchBar {
+  background-color: rgb(255, 255, 170);
+  border-radius: 30px;
+  size: 10000;
+  border: 30px;
+}
+#SearchBar::placeholder {
+  color: brown;
   font-weight: bold;
 }
