@@ -1,5 +1,5 @@
 let allPokemons = [];
-
+let visiblecount = 12;
 async function info() {
   try {
     const response = await fetch(
@@ -24,12 +24,12 @@ function renderList(list) {
   const box = document.getElementById("box");
   box.innerHTML = "";
 
-  list.forEach((p) => {
+  list.slice(0, visiblecount).forEach((p) => {
     const card = document.createElement("div");
 
     const name = document.createElement("p");
     const number = p.id;
-    name.textContent = p.name;
+    name.textContent = p.name + " #" + number;
 
     const img = document.createElement("img");
     img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
@@ -39,8 +39,12 @@ function renderList(list) {
     card.appendChild(name);
     box.appendChild(card);
   });
+  renderList(allPokemons);
 }
-
+document.getElementById("loadmore").addEventListener("click", function () {
+  visiblecount += 12;
+  renderList(allPokemons);
+});
 // Suodattaa Pokémonit nimen perusteella
 function searchPokemons(term) {
   term = term.toLowerCase();
