@@ -1,5 +1,5 @@
-// Haetaan URL-parametri 'id', joka kertoo mikä Pokémon valittiin
-// Esim jos käyttäjä klikkaa Bulbasauria, URL on info.html?git
+// Hae URL-parametri 'id', joka kertoo mikä Pokémon valittiin
+// Esim. jos käyttäjä klikkasi Bulbasauria, URL on info.html?id=1
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
@@ -20,7 +20,7 @@ async function loadPokemon() {
     // Haetaan Pokémonin tyypit listaksi
     const types = data.types.map((t) => t.type.name);
 
-    // rendataan tiedot html:ksi containeriin
+    // Rendataan tiedot HTML:ksi containeriin
     container.innerHTML = `
       <h2 class="pokemon-name">${data.name.toUpperCase()}</h2>
       <div class="sprites">
@@ -41,8 +41,7 @@ async function loadPokemon() {
     `;
   } catch (err) {
     // Virheen käsittely, jos API haku ei wörki
-    document.getElementById("pokemon-info").innerHTML =
-      "Pokémonia ei löytynyt 😢";
+    container.innerHTML = "Pokémonia ei löytynyt 😢";
     console.error("Virhe haettaessa Pokémonia:", err);
   }
 }
