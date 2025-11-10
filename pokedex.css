@@ -19,10 +19,13 @@ div {
 
 #SearchBar {
   outline-color: black;
-  background-color: rgb(255, 255, 170);
-  border-radius: 30px;
+  background-color: rgb(250, 250, 212);
+  border-radius: 5px;
+  height: 50px;
+  font-size: large;
 }
 #SearchBar::placeholder {
   color: brown;
   font-weight: bold;
+  font-size: large;
 }
