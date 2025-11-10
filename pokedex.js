@@ -1,5 +1,6 @@
 let allPokemons = [];
 let visiblecount = 12;
+
 async function info() {
   try {
     const response = await fetch(
@@ -26,6 +27,8 @@ function renderList(list) {
 
   list.slice(0, visiblecount).forEach((p) => {
     const card = document.createElement("div");
+    const link = document.createElement("a");
+    link.href = "info.html";
 
     const name = document.createElement("p");
     const number = p.id;
@@ -34,8 +37,8 @@ function renderList(list) {
     const img = document.createElement("img");
     img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
     img.alt = p.name;
-
-    card.appendChild(img);
+    link.appendChild(img);
+    card.appendChild(link);
     card.appendChild(name);
     box.appendChild(card);
   });
