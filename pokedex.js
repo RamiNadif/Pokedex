@@ -39,7 +39,6 @@ function renderList(list) {
     card.appendChild(name);
     box.appendChild(card);
   });
-  renderList(allPokemons);
 }
 document.getElementById("loadmore").addEventListener("click", function () {
   visiblecount += 12;
