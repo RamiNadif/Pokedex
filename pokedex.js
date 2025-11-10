@@ -1,3 +1,4 @@
+let allpokemons = [];
 async function info() {
   try {
     const response = await fetch(
@@ -7,6 +8,8 @@ async function info() {
     const data = await response.json();
     const pokemons = data.results.slice(0, 1328);
     const pokemoninfo = document.getElementById("box");
+    allpokemons = pokemons;
+    renderlist(pokemons);
     pokemoninfo.innerHTML = "";
 
     pokemons.forEach((pokemon) => {
@@ -27,4 +30,13 @@ async function info() {
     console.error("Virhe");
   }
 }
+function search(pokemonList, searchTerm) {
+  const term = searchTerm.toLowerCase();
+  return pokemonList.filter(
+    (s) =>
+      s.name.toLowerCase().includes(term) || s.id.toLowerCase().includes(term)
+  );
+}
+
 info();
+search(pokemonList, searchTerm);
