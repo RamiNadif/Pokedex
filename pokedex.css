@@ -1,13 +1,27 @@
 div {
+  background-color: rgb(238, 238, 238);
   display: column;
   flex-direction: row;
-  border-style: solid;
+  align-items: center;
   margin: 20px;
+  margin-right: 85px;
   padding: 10px;
   width: 250px;
   float: left;
   gap: 10px;
 }
+
+div:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.4s ease;
+}
+
+p {
+  font-weight: bold;
+  font-size: large;
+}
+
 #box {
   display: column;
   flex-direction: row;
@@ -28,4 +42,13 @@ div {
   color: brown;
   font-weight: bold;
   font-size: large;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: black;
+  padding: 10px;
 }
