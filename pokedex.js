@@ -8,7 +8,6 @@ async function info() {
     );
     const data = await response.json();
 
-    // Muodostetaan lista, jossa on nimi + id
     allPokemons = data.results.slice(0, 1328).map((p) => ({
       name: p.name,
       id: p.url.split("/")[6],
@@ -20,7 +19,6 @@ async function info() {
   }
 }
 
-// Piirtää annetun listan ruudulle
 function renderList(list) {
   const box = document.getElementById("box");
   box.innerHTML = "";
@@ -47,7 +45,7 @@ document.getElementById("loadmore").addEventListener("click", function () {
   visiblecount += 12;
   renderList(allPokemons);
 });
-// Suodattaa Pokémonit nimen perusteella
+
 function searchPokemons(term) {
   term = term.toLowerCase();
   return allPokemons.filter(
@@ -55,7 +53,6 @@ function searchPokemons(term) {
   );
 }
 
-// "Live search" (haku kirjoittaessa)
 document.getElementById("SearchBar").addEventListener("input", function () {
   const term = this.value;
   const filtered = searchPokemons(term);
