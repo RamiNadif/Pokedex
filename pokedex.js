@@ -1,6 +1,18 @@
 let allPokemons = [];
 let visiblecount = 12;
+let currentlist = [];
 
+const generationstonumbers = {
+  i: 1,
+  ii: 2,
+  iii: 3,
+  iv: 4,
+  v: 5,
+  vi: 6,
+  vii: 7,
+  viii: 8,
+  ix: 9,
+};
 async function info() {
   try {
     const response = await fetch(
@@ -19,14 +31,46 @@ async function info() {
   }
 }
 
-function renderList(list) {
+async function pokemontype(id) {
+  try {
+    const response1 = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
+    const data1 = await response1.json();
+    const types = data1.types.map((t) => t.type.name);
+    return types.join(", ");
+  } catch (error) {
+    console.log("virhe", error);
+  }
+}
+async function pokemongen(gen) {
+  try {
+    const response2 = await fetch(
+      `https://pokeapi.co/api/v2/pokemon-species/${gen}/`
+    );
+    const data2 = await response2.json();
+    const generations = data2.generation.name;
+    return generations;
+  } catch (error) {
+    console.log("virhe", error);
+  }
+}
+async function renderList(list) {
   const box = document.getElementById("box");
+  currentlist = list;
   box.innerHTML = "";
 
-  list.slice(0, visiblecount).forEach((p) => {
+  for (const p of list.slice(0, visiblecount)) {
     const card = document.createElement("div");
+
+    const modal = document.createElement("div");
+    modal.id = `modal-${p.id}`;
     const link = document.createElement("a");
     link.href = "info.html";
+    const types = await pokemontype(p.id);
+    const gen = await pokemongen(p.id);
+    const bettergen = gen.split("-")[1];
+    const gennumber = generationstonumbers[bettergen];
+    modal.textContent = `Type: ${types} \n Generation: ${gennumber}`;
+    modal.style.whiteSpace = "pre-line";
 
     const name = document.createElement("p");
     const number = p.id;
@@ -38,12 +82,14 @@ function renderList(list) {
     link.appendChild(img);
     card.appendChild(link);
     card.appendChild(name);
+
+    card.appendChild(modal);
     box.appendChild(card);
-  });
+  }
 }
 document.getElementById("loadmore").addEventListener("click", function () {
   visiblecount += 12;
-  renderList(allPokemons);
+  renderList(currentlist);
 });
 
 function searchPokemons(term) {
