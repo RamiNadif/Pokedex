@@ -1,3 +1,10 @@
+h1 {
+  display: inline-block;
+  border: 3px solid black;
+  border-radius: 5px;
+  padding: 10px;
+}
+
 div {
   background-color: rgb(238, 238, 238);
   display: column;
@@ -11,10 +18,29 @@ div {
   gap: 10px;
 }
 
+#box {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+div {
+  background-color: rgb(238, 238, 238);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  width: 250px;
+  margin: 20px;
+  border-radius: 20px;
+}
+
 div:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease, box-shadow 0.4s ease;
+  cursor: pointer;
 }
 
 p {
@@ -45,9 +71,23 @@ p {
 }
 
 footer {
-  bottom: 0;
-  left: 0;
-  width: 100%;
   background: black;
   padding: 10px;
+}
+
+#loadmore {
+  background-color: rgb(250, 250, 212);
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+  font-size: large;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin: 20px auto;
+  display: block;
+}
+
+#loadmore:hover {
+  background-color: rgb(200, 200, 150);
+  cursor: pointer;
 }
