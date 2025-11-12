@@ -106,7 +106,7 @@ document.getElementById("loadmore").addEventListener("click", function () {
 function searchPokemons(term) {
   term = term.toLowerCase();
   if (term === "") {
-    return allPokemons;
+    return allPokemons, renderList(currentlist);
   } else {
     return allPokemons.filter(
       (p) =>
