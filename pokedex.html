@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="pokedex.css" />
     <title>Pokedex</title>
+    <link
+      rel="icon"
+      href="/kuvat/png-clipart-pokeball-pokeball-thumbnail.png"
+    />
   </head>
   <body>
     <header>
@@ -16,126 +20,21 @@
       <h1>Pokedex</h1>
       <h2>Search by name or number</h2>
       <input type="search" placeholder="Search" id="SearchBar" />
-      <button id="sort">Show advanced search</button>
-      <div id="sortmodal">
-        <label
-          ><input type="checkbox" class="type-checkbox" value="normal" />
-          Normal</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="fire" />
-          Fire</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="water" />
-          Water</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="electric" />
-          Electric</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="grass" />
-          Grass</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="ice" />
-          Ice</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="fighting" />
-          Fighting</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="poison" />
-          Poison</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="ground" />
-          Ground</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="flying" />
-          Flying</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="psychic" />
-          Psychic</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="bug" />
-          Bug</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="rock" />
-          Rock</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="ghost" />
-          Ghost</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="dragon" />
-          Dragon</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="dark" />
-          Dark</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="steel" />
-          Steel</label
-        >
-        <label
-          ><input type="checkbox" class="type-checkbox" value="fairy" />
-          Fairy</label
-        >
-        <label
-          ><input type="checkbox" class="generation-checkbox" value="1" />
-          Generation I</label
-        >
-        <label
-          ><input type="checkbox" class="generation-checkbox" value="2" />
-          Generation II</label
-        >
-        <label
-          ><input type="checkbox" class="generation-checkbox" value="3" />
-          Generation III</label
-        >
-        <label
-          ><input type="checkbox" class="generation-checkbox" value="4" />
-          Generation IV</label
-        >
-        <label
-          ><input type="checkbox" class="generation-checkbox" value="5" />
-          Generation V</label
-        >
-        <label
-          ><input type="checkbox" class="generation-checkbox" value="6" />
-          Generation VI</label
-        >
-        <label
-          ><input type="checkbox" class="generation-checkbox" value="7" />
-          Generation VII</label
-        >
-        <label
-          ><input type="checkbox" class="generation-checkbox" value="8" />
-          Generation VIII</label
-        >
-        <label
-          ><input type="checkbox" class="generation-checkbox" value="9" />
-          Generation IX</label
-        >
-      </div>
+      <label for="sortby">Sort by</label>
+      <select name="sortby" id="sortby">
+        <option value="generation">generation</option>
+        <option value="type">type</option>
+      </select>
     </header>
     <main>
       <section id="box"></section>
       <button id="loadmore">Load for more</button>
     </main>
     <footer>
-      <p>Made by Maxim and Rami</p>
+      <input type="email" placeholder="Example@gmail.com" />
+      <input type="password" placeholder="password" />
+      <button>Sign in</button>
     </footer>
   </body>
   <script src="pokedex.js"></script>
-  <script src="main.js"></script>
 </html>
