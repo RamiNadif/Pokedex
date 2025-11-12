@@ -1,7 +1,7 @@
 let allPokemons = [];
 let visiblecount = 12;
 let currentlist = [];
-
+sortmodal.style.display = "none";
 const generationstonumbers = {
   i: 1,
   ii: 2,
@@ -13,6 +13,10 @@ const generationstonumbers = {
   viii: 8,
   ix: 9,
 };
+document.getElementById("sort").addEventListener("click", function () {
+  sortmodal.style.display =
+    sortmodal.style.display === "none" ? "block" : "none";
+});
 async function info() {
   try {
     const response = await fetch(
@@ -60,7 +64,7 @@ async function renderList(list) {
 
   for (const p of list.slice(0, visiblecount)) {
     const card = document.createElement("div");
-
+    card.id = "card";
     const modal = document.createElement("div");
     modal.id = `modal-${p.id}`;
     const link = document.createElement("a");
@@ -71,6 +75,10 @@ async function renderList(list) {
     const gennumber = generationstonumbers[bettergen];
     modal.textContent = `Type: ${types} \n Generation: ${gennumber}`;
     modal.style.whiteSpace = "pre-line";
+    modal.style.display = "none";
+    card.addEventListener("click", function () {
+      modal.style.display = modal.style.display === "none" ? "block" : "none";
+    });
 
     const name = document.createElement("p");
     const number = p.id;
@@ -94,9 +102,14 @@ document.getElementById("loadmore").addEventListener("click", function () {
 
 function searchPokemons(term) {
   term = term.toLowerCase();
-  return allPokemons.filter(
-    (p) => p.name.toLowerCase().includes(term) || p.id.toString().includes(term)
-  );
+  if (term === "") {
+    return allPokemons;
+  } else {
+    return allPokemons.filter(
+      (p) =>
+        p.name.toLowerCase().includes(term) || p.id.toString().includes(term)
+    );
+  }
 }
 
 document.getElementById("SearchBar").addEventListener("input", function () {
