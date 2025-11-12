@@ -1,6 +1,8 @@
 let allPokemons = [];
 let visiblecount = 12;
 let currentlist = [];
+const typelist = {};
+
 sortmodal.style.display = "none";
 const generationstonumbers = {
   i: 1,
