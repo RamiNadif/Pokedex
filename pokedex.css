@@ -11,7 +11,9 @@
   flex-wrap: wrap;
   gap: 20px;
 }
-
+#image {
+  background-color: rgb(83, 77, 77);
+}
 #card {
   background-color: rgb(238, 238, 238);
   display: flex;

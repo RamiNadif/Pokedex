@@ -87,6 +87,7 @@ async function renderList(list) {
     const img = document.createElement("img");
     img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
     img.alt = p.name;
+    img.id = "image";
     link.appendChild(img);
     card.appendChild(link);
     card.appendChild(name);
