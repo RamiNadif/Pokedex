@@ -1,40 +1,3 @@
-let allPokemons = [];
-let visiblecount = 12;
-let currentlist = [];
-
-const typelist = {
-  normal: "/kuvat/normalreal.png",
-  fire: "/kuvat/fire.png",
-  water: "/kuvat/water.svg",
-  grass: "/kuvat/leaf.png",
-  electric: "/kuvat/electric.png",
-  ice: "/kuvat/ice.png",
-  fighting: "/kuvat/fighting.png",
-  poison: "/kuvat/poison.png",
-  ground: "/kuvat/ground.png",
-  flying: "/kuvat/flying.png",
-  psychic: "/kuvat/psychic.png",
-  bug: "/kuvat/bug.svg",
-  rock: "/kuvat/rock.png",
-  ghost: "/kuvat/ghost.png",
-  dragon: "/kuvat/dragon.png",
-  dark: "/kuvat/dark.png",
-  steel: "/kuvat/steel.png",
-  fairy: "/kuvat/fairy.png",
-};
-
-const generationstonumbers = {
-  i: 1,
-  ii: 2,
-  iii: 3,
-  iv: 4,
-  v: 5,
-  vi: 6,
-  vii: 7,
-  viii: 8,
-  ix: 9,
-};
-
 sortmodal.style.display = "none";
 
 SortGenerations.style.display = "none";
@@ -44,7 +7,6 @@ document.getElementById("sort").addEventListener("click", function () {
   SortGenerations.style.display =
     SortGenerations.style.display === "none" ? "block" : "none";
 });
-
 async function info() {
   try {
     const response = await fetch(
@@ -92,11 +54,10 @@ async function renderList(list) {
     const types = await pokemontype(p.id);
     const gen = await pokemongen(p.id);
 
-    let gennumber = "?";
-    if (gen && gen.startsWith("generation-")) {
-      const bettergen = gen.split("-")[1];
-      gennumber = generationstonumbers[bettergen] || "?";
-    }
+    let gennumber = "";
+
+    const bettergen = gen.split("-")[1];
+    gennumber = generationstonumbers[bettergen];
 
     const typeDiv = document.createElement("div");
     typeDiv.textContent = `Generation ${gennumber}`;
@@ -132,7 +93,6 @@ document.getElementById("loadmore").addEventListener("click", () => {
   visiblecount += 12;
   renderList(currentlist);
 });
-function sortpokemons() {}
 
 function searchPokemons(term) {
   term = term.toLowerCase();
