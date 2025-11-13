@@ -82,8 +82,11 @@ p {
 
 #sortmodal,
 #SortGenerations {
+  border-radius: 5px;
+  padding: 10px;
   background-color: rgb(212, 212, 212);
   font-weight: bolder;
+  font-size: 20px;
 }
 
 #FullSortModal {
@@ -92,7 +95,6 @@ p {
 }
 
 #sortmodal label {
-  margin-right: 1000px;
   display: flex;
   flex-direction: row;
 }
