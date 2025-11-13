@@ -129,10 +129,7 @@ document.getElementById("loadmore").addEventListener("click", () => {
   visiblecount += 12;
   renderList(currentlist);
 });
-function sortpokemons(sort) {
-  const sort = "type-normal".value;
-  console.log(sort);
-}
+function sortpokemons() {}
 
 function searchPokemons(term) {
   term = term.toLowerCase();
