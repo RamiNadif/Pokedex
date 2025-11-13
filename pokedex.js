@@ -2,6 +2,8 @@ sortmodal.style.display = "none";
 
 SortGenerations.style.display = "none";
 document.getElementById("sort").addEventListener("click", function () {
+  document.getElementById("sort").innerHTML = "Hide advanced search";
+
   sortmodal.style.display =
     sortmodal.style.display === "none" ? "block" : "none";
   SortGenerations.style.display =
