@@ -1,3 +1,7 @@
+let modal = document.getElementById("myModal");
+
+let span = document.getElementsByClassName("close")[0];
+
 sortmodal.style.display = "none";
 
 SortGenerations.style.display = "none";
@@ -82,8 +86,14 @@ async function renderList(list) {
     img.alt = p.name;
     img.id = "image";
 
-    link.appendChild(img);
-    card.appendChild(link);
+    card.addEventListener("click", function () {
+      modal.style.display = "block";
+    });
+    span.addEventListener("click", function () {
+      modal.style.display = "none";
+    });
+
+    card.appendChild(img);
     card.appendChild(name);
     card.appendChild(typeDiv);
 
