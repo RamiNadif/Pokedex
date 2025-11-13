@@ -7,7 +7,7 @@ const typelist = {
   fire: "/kuvat/fire.png",
   water: "/kuvat/water.svg",
   grass: "/kuvat/leaf.png",
-  electric: "/kuvat/electricr.png",
+  electric: "/kuvat/electric.png",
   ice: "/kuvat/ice.png",
   fighting: "/kuvat/fighting.png",
   poison: "/kuvat/poison.png",
@@ -37,9 +37,12 @@ const generationstonumbers = {
 
 sortmodal.style.display = "none";
 
+SortGenerations.style.display = "none";
 document.getElementById("sort").addEventListener("click", function () {
   sortmodal.style.display =
     sortmodal.style.display === "none" ? "block" : "none";
+  SortGenerations.style.display =
+    SortGenerations.style.display === "none" ? "block" : "none";
 });
 
 async function info() {
