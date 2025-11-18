@@ -1,8 +1,10 @@
+let selectedtypes = [];
 let modal = document.getElementById("myModal");
 let sortmodal = document.getElementById("sortmodal");
 let SortGenerations = document.getElementById("SortGenerations");
 let span = document.getElementsByClassName("close")[0];
 const searchbar = document.getElementById("SearchBar");
+let pokemondata = {};
 sortmodal.style.display = "none";
 
 SortGenerations.style.display = "none";
@@ -52,9 +54,9 @@ async function pokemongen(id) {
 
 async function renderList(list) {
   const box = document.getElementById("box");
-  currentlist = list;
-  box.innerHTML = "";
 
+  box.innerHTML = "";
+  currentlist = list;
   for (const p of list.slice(0, visiblecount)) {
     const card = document.createElement("div");
     card.id = "card";
@@ -192,6 +194,7 @@ function searchPokemons(term) {
   term = term.toLowerCase();
   if (term === "") {
     renderList(allPokemons);
+
     return;
   }
   const filtered = allPokemons.filter(
@@ -199,7 +202,42 @@ function searchPokemons(term) {
   );
   renderList(filtered);
 }
+const typesort = document.querySelectorAll(".type-checkbox");
+typesort.forEach((sort) => {
+  sort.addEventListener("change", sortchange);
+});
+function applysort() {
+  if (selectedtypes.length === 0) {
+    renderList(allPokemons);
+    return;
+  }
+  const filtered = allPokemons.filter((p) => {
+    const types = pokemondata[p.id].types;
 
+    return selectedtypes.every((t) => types.includes(t));
+  });
+
+  renderList(filtered);
+}
+
+function sortchange(e) {
+  const ischecked = e.target.checked;
+
+  const value = e.target.value;
+  if (ischecked) {
+    selectedtypes.push(value);
+    console.log(selectedtypes);
+  } else {
+    selectedtypes = selectedtypes.filter((t) => t !== value);
+    console.log(selectedtypes);
+  }
+  applysort();
+}
+searchbar.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    searchPokemons(searchbar.value);
+  }
+});
 document.getElementById("searchbtn").addEventListener("click", function () {
   searchPokemons(searchbar.value);
 });
