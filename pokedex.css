@@ -1,3 +1,7 @@
+body {
+  background: url(/kuvat/background.jpg) center/cover no-repeat fixed;
+}
+
 h1 {
   margin-top: -2px;
 }
@@ -64,7 +68,7 @@ p {
 }
 
 #loadmore {
-  background-color: rgb(250, 250, 212);
+  background-color: rgb(255, 105, 105);
   border-radius: 5px;
   padding: 10px;
   font-weight: bold;
@@ -76,7 +80,7 @@ p {
 }
 
 #loadmore:hover {
-  background-color: rgb(200, 200, 150);
+  background-color: rgb(255, 0, 0);
   cursor: pointer;
 }
 
@@ -133,5 +137,18 @@ p {
 .close:focus {
   color: black;
   text-decoration: none;
+  cursor: pointer;
+}
+
+#sort {
+  background-color: rgb(255, 105, 105);
+  border-radius: 5px;
+  font-size: large;
+  font-weight: bold;
+  padding: 10px;
+}
+
+#sort:hover {
+  background-color: rgb(255, 0, 0);
   cursor: pointer;
 }
