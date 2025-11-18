@@ -52,6 +52,7 @@ async function pokemongen(id) {
 async function renderList(list) {
   const box = document.getElementById("box");
   currentlist = list;
+  box.innerHTML = "";
 
   for (const p of list.slice(0, visiblecount)) {
     const card = document.createElement("div");
