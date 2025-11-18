@@ -1,8 +1,10 @@
+let selectedtypes = [];
 let modal = document.getElementById("myModal");
 let sortmodal = document.getElementById("sortmodal");
 let SortGenerations = document.getElementById("SortGenerations");
 let span = document.getElementsByClassName("close")[0];
 const searchbar = document.getElementById("SearchBar");
+let pokemondata = {};
 sortmodal.style.display = "none";
 
 SortGenerations.style.display = "none";
@@ -52,9 +54,9 @@ async function pokemongen(id) {
 
 async function renderList(list) {
   const box = document.getElementById("box");
-  currentlist = list;
-  box.innerHTML = "";
 
+  box.innerHTML = "";
+  currentlist = list;
   for (const p of list.slice(0, visiblecount)) {
     const card = document.createElement("div");
     card.id = "card";
@@ -90,48 +92,50 @@ async function renderList(list) {
     card.addEventListener("click", async function () {
       try {
         const response = await fetch(
+          // Hakee Pokémonin perustiedot painot jne pokeapin /pokemon/{id} endpointista
           `https://pokeapi.co/api/v2/pokemon/${p.id}/`
         );
-        const data = await response.json();
+        const data = await response.json(); // await odottaa että api vastaa, sen jälkeen jatkaa
 
         const speciesResponse = await fetch(
           `https://pokeapi.co/api/v2/pokemon-species/${p.id}/`
         );
-        const speciesData = await speciesResponse.json();
+        const speciesData = await speciesResponse.json(); // hakee lajin tiedot kuten sukupolven ja pienen kuvaus tekstin /pokemon-species/{id} endpointista
 
         const detailsDiv = document.getElementById("pokemonDetails");
-        detailsDiv.innerHTML = "";
+        detailsDiv.innerHTML = ""; // ennen kun valitaan uusi pokemon, se tyhjentää vanhan tiedon.
+        // estää myös vanhojen tietojen jäämisen näkyviin kun uudesta pokemonista painetaan
 
         const nameEl = document.createElement("h2");
-        nameEl.textContent = `${data.name} #${data.id}`;
+        nameEl.textContent = `${data.name} #${data.id}`; // tehään uus <h2> ja asetetaan siihen pokemonin nimi ja numero
 
         const imgEl = document.createElement("img");
-        imgEl.src = data.sprites.front_default;
-        imgEl.alt = data.name;
+        imgEl.src = data.sprites.front_default; // // näytetään kuva modalissa
+        imgEl.alt = data.name; // alt on siksi että jos sivu ei lataudu, niin hän saa silti tiedon mikä pokemon on
 
-        // Types
+        // näyttää pokemonin tyypit (esim fire, water, poison, rock tai vaikka flying)
         const typesEl = document.createElement("p");
         typesEl.textContent =
           "Type: " + data.types.map((t) => t.type.name).join(", ");
 
-        // generations
+        // kertoo mistä generaatiosta pokemon on
         const genEl = document.createElement("p");
         const genNumber =
           generationstonumbers[speciesData.generation.name.split("-")[1]];
         genEl.textContent = `Generation: ${genNumber}`;
 
-        // Paino ja pituus
+        // Näyttää pokemonin painon kiloina ja pituuden metreinä
         const weightEl = document.createElement("p");
         weightEl.textContent = `Weight: ${data.weight / 10} kg`;
         const heightEl = document.createElement("p");
         heightEl.textContent = `Height: ${data.height / 10} m`;
 
-        // Abilities
+        // listaa pokemonin kyvyt/ominaisuudet
         const abilitiesEl = document.createElement("p");
         abilitiesEl.textContent =
           "Abilities: " + data.abilities.map((a) => a.ability.name).join(", ");
 
-        // Weaknesses
+        // Kertoo minkä tyypin liikkeet/hyökkäykset ns tupla damagee (heikkoudet)
         const weaknessPromises = data.types.map(async (t) => {
           const typeResp = await fetch(t.type.url);
           const typeData = await typeResp.json();
@@ -147,9 +151,11 @@ async function renderList(list) {
         const flavorEl = document.createElement("p");
         const flavorText = speciesData.flavor_text_entries.find(
           (entry) => entry.language.name === "en"
-        ).flavor_text;
-        flavorEl.textContent = flavorText.replace(/\n|\f/g, " ");
+        ).flavor_text; // valitaan englannin kieli tekstiin ja siksi englanti koska sitä on muuallakin
+        flavorEl.textContent = flavorText.replace(/\n|\f/g, " "); // korvaa rivinvaihdot jotta teksti on paljon cleanimpi
 
+        // jokane luotu elementti liitetään modaliin (pokemondetails diviin)
+        // niin modalissa näkyy kaikki data näkyy yhellä kertaa samaa aikaa
         detailsDiv.appendChild(nameEl);
         detailsDiv.appendChild(imgEl);
         detailsDiv.appendChild(typesEl);
@@ -160,13 +166,14 @@ async function renderList(list) {
         detailsDiv.appendChild(weaknessesEl);
         detailsDiv.appendChild(flavorEl);
 
-        modal.style.display = "block";
+        modal.style.display = "block"; //Modal tulee ikkunaksi sivun päälle ruudun keskelle
       } catch (err) {
         console.error("Modalin dataa ei voitu hakea:", err);
       }
     });
 
     span.addEventListener("click", function () {
+      //klikkaamalla sulkemis nappia Modal sulkeutuu
       modal.style.display = "none";
     });
 
@@ -187,6 +194,7 @@ function searchPokemons(term) {
   term = term.toLowerCase();
   if (term === "") {
     renderList(allPokemons);
+
     return;
   }
   const filtered = allPokemons.filter(
@@ -194,7 +202,42 @@ function searchPokemons(term) {
   );
   renderList(filtered);
 }
+const typesort = document.querySelectorAll(".type-checkbox");
+typesort.forEach((sort) => {
+  sort.addEventListener("change", sortchange);
+});
+function applysort() {
+  if (selectedtypes.length === 0) {
+    renderList(allPokemons);
+    return;
+  }
+  const filtered = allPokemons.filter((p) => {
+    const types = pokemondata[p.id].types;
 
+    return selectedtypes.every((t) => types.includes(t));
+  });
+
+  renderList(filtered);
+}
+
+function sortchange(e) {
+  const ischecked = e.target.checked;
+
+  const value = e.target.value;
+  if (ischecked) {
+    selectedtypes.push(value);
+    console.log(selectedtypes);
+  } else {
+    selectedtypes = selectedtypes.filter((t) => t !== value);
+    console.log(selectedtypes);
+  }
+  applysort();
+}
+searchbar.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    searchPokemons(searchbar.value);
+  }
+});
 document.getElementById("searchbtn").addEventListener("click", function () {
   searchPokemons(searchbar.value);
 });
