@@ -1,12 +1,16 @@
 let modal = document.getElementById("myModal");
-
+let sortmodal = document.getElementById("sortmodal");
+let SortGenerations = document.getElementById("SortGenerations");
 let span = document.getElementsByClassName("close")[0];
-
+const searchbar = document.getElementById("SearchBar");
 sortmodal.style.display = "none";
 
 SortGenerations.style.display = "none";
 document.getElementById("sort").addEventListener("click", function () {
-  document.getElementById("sort").innerHTML = "Hide advanced search";
+  this.innerHTML =
+    this.innerHTML === "Show advanced search"
+      ? "Hide advanced search"
+      : "Show advanced search";
 
   sortmodal.style.display =
     sortmodal.style.display === "none" ? "block" : "none";
@@ -117,9 +121,8 @@ function searchPokemons(term) {
   renderList(filtered);
 }
 
-document.getElementById("SearchBar").addEventListener("input", function () {
-  searchPokemons(this.value);
+document.getElementById("searchbtn").addEventListener("click", function () {
+  searchPokemons(searchbar.value);
 });
 
 info();
-sortpokemons();
