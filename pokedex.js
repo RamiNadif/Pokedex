@@ -17,6 +17,7 @@ document.getElementById("sort").addEventListener("click", function () {
   SortGenerations.style.display =
     SortGenerations.style.display === "none" ? "block" : "none";
 });
+
 async function info() {
   try {
     const response = await fetch(
@@ -57,14 +58,10 @@ async function renderList(list) {
     const card = document.createElement("div");
     card.id = "card";
 
-    const link = document.createElement("a");
-    link.href = "info.html";
-
     const types = await pokemontype(p.id);
     const gen = await pokemongen(p.id);
 
     let gennumber = "";
-
     const bettergen = gen.split("-")[1];
     gennumber = generationstonumbers[bettergen];
 
@@ -89,9 +86,85 @@ async function renderList(list) {
     img.alt = p.name;
     img.id = "image";
 
-    card.addEventListener("click", function () {
-      modal.style.display = "block";
+    card.addEventListener("click", async function () {
+      try {
+        const response = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${p.id}/`
+        );
+        const data = await response.json();
+
+        const speciesResponse = await fetch(
+          `https://pokeapi.co/api/v2/pokemon-species/${p.id}/`
+        );
+        const speciesData = await speciesResponse.json();
+
+        const detailsDiv = document.getElementById("pokemonDetails");
+        detailsDiv.innerHTML = "";
+
+        const nameEl = document.createElement("h2");
+        nameEl.textContent = `${data.name} #${data.id}`;
+
+        const imgEl = document.createElement("img");
+        imgEl.src = data.sprites.front_default;
+        imgEl.alt = data.name;
+
+        // Types
+        const typesEl = document.createElement("p");
+        typesEl.textContent =
+          "Type: " + data.types.map((t) => t.type.name).join(", ");
+
+        // generations
+        const genEl = document.createElement("p");
+        const genNumber =
+          generationstonumbers[speciesData.generation.name.split("-")[1]];
+        genEl.textContent = `Generation: ${genNumber}`;
+
+        // Paino ja pituus
+        const weightEl = document.createElement("p");
+        weightEl.textContent = `Weight: ${data.weight / 10} kg`;
+        const heightEl = document.createElement("p");
+        heightEl.textContent = `Height: ${data.height / 10} m`;
+
+        // Abilities
+        const abilitiesEl = document.createElement("p");
+        abilitiesEl.textContent =
+          "Abilities: " + data.abilities.map((a) => a.ability.name).join(", ");
+
+        // Weaknesses
+        const weaknessPromises = data.types.map(async (t) => {
+          const typeResp = await fetch(t.type.url);
+          const typeData = await typeResp.json();
+          return typeData.damage_relations.double_damage_from.map(
+            (d) => d.name
+          );
+        });
+        const weaknessesArr = await Promise.all(weaknessPromises);
+        const weaknesses = [...new Set(weaknessesArr.flat())];
+        const weaknessesEl = document.createElement("p");
+        weaknessesEl.textContent = "Weaknesses: " + weaknesses.join(", ");
+
+        const flavorEl = document.createElement("p");
+        const flavorText = speciesData.flavor_text_entries.find(
+          (entry) => entry.language.name === "en"
+        ).flavor_text;
+        flavorEl.textContent = flavorText.replace(/\n|\f/g, " ");
+
+        detailsDiv.appendChild(nameEl);
+        detailsDiv.appendChild(imgEl);
+        detailsDiv.appendChild(typesEl);
+        detailsDiv.appendChild(genEl);
+        detailsDiv.appendChild(weightEl);
+        detailsDiv.appendChild(heightEl);
+        detailsDiv.appendChild(abilitiesEl);
+        detailsDiv.appendChild(weaknessesEl);
+        detailsDiv.appendChild(flavorEl);
+
+        modal.style.display = "block";
+      } catch (err) {
+        console.error("Modalin dataa ei voitu hakea:", err);
+      }
     });
+
     span.addEventListener("click", function () {
       modal.style.display = "none";
     });
