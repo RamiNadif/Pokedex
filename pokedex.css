@@ -1,7 +1,9 @@
 body {
   background: url(/kuvat/background.jpg) center/cover no-repeat fixed;
 }
-
+header {
+  background: url(/kuvat/lataus.jpg);
+}
 h1 {
   margin-top: -2px;
 }
