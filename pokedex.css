@@ -2,6 +2,35 @@ body {
   background: url(/kuvat/background.jpg) center/cover no-repeat fixed;
 }
 
+header {
+  background-color: rgb(255, 204, 0);
+}
+
+#sort {
+  background-color: rgb(255, 105, 105);
+  border-radius: 5px;
+  font-size: large;
+  font-weight: bold;
+  padding: 10px;
+}
+
+#sort:hover {
+  background-color: rgb(255, 0, 0);
+  cursor: pointer;
+}
+
+#searchbtn {
+  background-color: rgb(255, 105, 105);
+  border-radius: 5px;
+  position: relative;
+  top: 8px;
+}
+
+#searchimage {
+  width: 33px;
+  height: 33px;
+}
+
 h1 {
   margin-top: -2px;
 }
@@ -140,18 +169,6 @@ p {
   cursor: pointer;
 }
 
-#sort {
-  background-color: rgb(255, 105, 105);
-  border-radius: 5px;
-  font-size: large;
-  font-weight: bold;
-  padding: 10px;
-}
-
-#sort:hover {
-  background-color: rgb(255, 0, 0);
-  cursor: pointer;
-}
 .modal {
   display: none;
   position: fixed;
