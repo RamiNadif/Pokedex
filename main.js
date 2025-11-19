@@ -34,3 +34,10 @@ const generationstonumbers = {
   viii: 8,
   ix: 9,
 };
+let selectedtypes = [];
+let modal = document.getElementById("myModal");
+let sortmodal = document.getElementById("sortmodal");
+let SortGenerations = document.getElementById("SortGenerations");
+let span = document.getElementsByClassName("close")[0];
+const searchbar = document.getElementById("SearchBar");
+let pokemondata = {};

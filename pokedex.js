@@ -1,10 +1,3 @@
-let selectedtypes = [];
-let modal = document.getElementById("myModal");
-let sortmodal = document.getElementById("sortmodal");
-let SortGenerations = document.getElementById("SortGenerations");
-let span = document.getElementsByClassName("close")[0];
-const searchbar = document.getElementById("SearchBar");
-let pokemondata = {};
 sortmodal.style.display = "none";
 
 SortGenerations.style.display = "none";
@@ -36,8 +29,16 @@ async function info() {
   } catch (error) {
     console.error("Virhe", error);
   }
+  await loadTypes();
+  renderList(allPokemons);
 }
-
+async function loadTypes() {
+  for (let p of allPokemons) {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${p.id}/`);
+    const data = await res.json();
+    p.types = data.types.map((t) => t.type.name);
+  }
+}
 async function pokemontype(id) {
   const response1 = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
   const data1 = await response1.json();
@@ -206,20 +207,12 @@ const typesort = document.querySelectorAll(".type-checkbox");
 typesort.forEach((sort) => {
   sort.addEventListener("change", sortchange);
 });
-function applysort() {
-  if (selectedtypes.length === 0) {
-    renderList(allPokemons);
-    return;
-  }
-  const filtered = allPokemons.filter((p) => {
-    const types = pokemondata[p.id].types;
-
-    return selectedtypes.every((t) => types.includes(t));
-  });
-
-  renderList(filtered);
+function filtertypes() {
+  if (selectedtypes.length === 0) return allPokemons;
+  return allPokemons.filter((p) =>
+    selectedtypes.every((t) => p.types && p.types.includes(t))
+  );
 }
-
 function sortchange(e) {
   const ischecked = e.target.checked;
 
@@ -231,7 +224,8 @@ function sortchange(e) {
     selectedtypes = selectedtypes.filter((t) => t !== value);
     console.log(selectedtypes);
   }
-  applysort();
+  const filtered = filtertypes();
+  renderList(filtered);
 }
 searchbar.addEventListener("keydown", function (e) {
   if (e.key === "Enter") {
