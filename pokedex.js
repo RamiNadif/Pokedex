@@ -150,6 +150,7 @@ async function renderList(list) {
         weaknessesEl.textContent = "Weaknesses: " + weaknesses.join(", ");
 
         const flavorEl = document.createElement("p");
+        flavorEl.id = "flavor";
         const flavorText = speciesData.flavor_text_entries.find(
           (entry) => entry.language.name === "en"
         ).flavor_text; // valitaan englannin kieli tekstiin ja siksi englanti koska sitä on muuallakin
@@ -159,13 +160,13 @@ async function renderList(list) {
         // niin modalissa näkyy kaikki data näkyy yhellä kertaa samaa aikaa
         detailsDiv.appendChild(nameEl);
         detailsDiv.appendChild(imgEl);
+        detailsDiv.appendChild(flavorEl);
         detailsDiv.appendChild(typesEl);
         detailsDiv.appendChild(genEl);
         detailsDiv.appendChild(weightEl);
         detailsDiv.appendChild(heightEl);
         detailsDiv.appendChild(abilitiesEl);
         detailsDiv.appendChild(weaknessesEl);
-        detailsDiv.appendChild(flavorEl);
 
         modal.style.display = "block"; //Modal tulee ikkunaksi sivun päälle ruudun keskelle
       } catch (err) {
