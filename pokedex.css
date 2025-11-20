@@ -8,6 +8,10 @@ body {
   justify-content: center;
 }
 
+#HeaderStuff {
+  margin-top: -100px;
+}
+
 #LogoImage {
   width: 200px;
   height: auto;
@@ -42,10 +46,6 @@ header {
 #searchimage {
   width: 33px;
   height: 33px;
-}
-
-h1 {
-  margin: 0;
 }
 
 #box {
